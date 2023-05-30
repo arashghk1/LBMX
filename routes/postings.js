@@ -61,4 +61,28 @@ router.get('/nuke', function (req, res, next) {
   });
 });
 
+/* PUT update a posting */
+router.put('/:postingId', async (req, res) => {
+  const postingId = req.params.postingId;
+  const { employeeId } = req.body;
+
+  try {
+    const posting = await JobPosting.findOneAndUpdate(
+      { postingId },
+      { employeeId },
+      { new: true }
+    );
+
+    if (!posting) {
+      return res.status(404).json({ error: 'Posting not found' });
+    }
+
+    return res.json(posting);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Server error' });
+  }
+});
+
+
 module.exports = router;
