@@ -12,8 +12,9 @@ const JobPosting = new mongoose.Schema(
     languages: [String],
     frameworks: [String],
     closingDate: Date,
+    employeeId: String, // Add the employeeId field as a string
   },
   { timestamps: true }
 );
 
-module.exports = JobPosting;
+module.exports = mongoose.model('JobPosting', JobPosting);
